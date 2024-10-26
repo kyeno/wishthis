@@ -105,9 +105,12 @@ class Wish
             $urlParameters = [];
         }
 
-        foreach (self::$affiliates as $host => $tagId) {
-            if (\str_contains($urlParts['host'], $host) && isset($urlParameters['tag'])) {
-                return true;
+        // FIX: Allow wishes without host/URL set.
+        if (isset($urlParts['host'])) {
+            foreach (self::$affiliates as $host => $tagId) {
+                if (\str_contains($urlParts['host'], $host) && isset($urlParameters['tag'])) {
+                    return true;
+                }
             }
         }
 
